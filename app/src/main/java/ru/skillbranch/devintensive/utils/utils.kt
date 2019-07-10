@@ -4,8 +4,8 @@ object Utils {
     fun parseFullName(fullName:String?):Pair<String?, String?> {
 
         val parts: List<String>
-        var firstName: String? = ""
-        var lastName: String? = ""
+        var firstName: String? = null
+        var lastName: String? = null
 
         if (fullName != null) {
                 if (fullName.contains(" ")) {
@@ -16,9 +16,6 @@ object Utils {
                     if (fullName!="") firstName = fullName else firstName = null
                     lastName = null
                 }
-        } else {
-            val firstName = null
-            val lastName = null
         }
         return Pair(firstName, lastName)
     }
