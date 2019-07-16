@@ -2,7 +2,7 @@ package ru.skillbranch.devintensive.models
 
 import android.graphics.Typeface.NORMAL
 
-class Bender (var status:Status = Status.NORMAL, var question: Question =Question.NAME){
+class Bender (var status:Status = Status.NORMAL, var question: Question = Question.NAME){
 
     fun askQuestion():String = when(question){
                 Question.NAME->Question.NAME.question
@@ -14,9 +14,10 @@ class Bender (var status:Status = Status.NORMAL, var question: Question =Questio
     }
 
     fun listenAnswer(answer:String):Pair<String, Triple<Int, Int, Int>>{
-        return if (question.answer.contains(answer)){
+        return if (question.answer.contains(answer.toLowerCase())){
             question = question.nextQuestion()
-            "Отлично - ты справился\n${question.question}" to status.color
+            if (question!=Question.IDLE){"Отлично - ты справился\n${question.question}" to status.color}
+            else {"Отлично - ты справился\nНа этом все, вопросов больше нет" to status.color}
         }
         else{
             if (status == Status.DANGER) {
@@ -43,22 +44,22 @@ class Bender (var status:Status = Status.NORMAL, var question: Question =Questio
         }
     }
     enum class Question(val question: String, val answer: List<String>){
-        NAME ("Как меня зовут?", listOf("бендер", "bender")){
+        NAME("Как меня зовут?", listOf("бендер", "bender")){
             override fun nextQuestion(): Question = PROFESSION
         },
-        PROFESSION ("Назови мою профессию?", listOf("сгибальщик", "bender")) {
+        PROFESSION("Назови мою профессию?", listOf("сгибальщик", "bender")){
             override fun nextQuestion(): Question = MATERIAL
         },
-        MATERIAL ("Из чего я сделан?", listOf("металл", "дерево", "metal", "iron", "wood")) {
+        MATERIAL("Из чего я сделан?", listOf("металл", "дерево", "metal", "iron", "wood")){
             override fun nextQuestion(): Question = BDAY
         },
-        BDAY ("Когда меня создали?", listOf("2993")) {
+        BDAY("Когда меня создали?", listOf("2993")){
             override fun nextQuestion(): Question = SERIAL
         },
-        SERIAL ("Мой серийный номер?", listOf("2716057")) {
+        SERIAL("Мой серийный номер?", listOf("2716057")){
             override fun nextQuestion(): Question = IDLE
         },
-        IDLE ("На этом все, вопросов больше нет", listOf()) {
+        IDLE("На этом все, вопросов больше нет", listOf()){
             override fun nextQuestion(): Question = IDLE
         };
 
