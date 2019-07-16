@@ -23,10 +23,10 @@ object Utils {
 
 
     fun transliteration(payload: String, divider:String=" "): String {
-        TODO()
+        return payload.decapitalize()
     }
 
-    fun toInitials(firstName: String?, lastName: String?): String? {
-        TODO()
+    fun toInitials(firstName: String?, lastName: String?): String {
+        if (firstName != null) return firstName.decapitalize() else return ""
     }
 }
