@@ -19,9 +19,10 @@ class Bender (var status:Status = Status.NORMAL, var question: Question = Questi
             if (question!=Question.IDLE){
                 question = question.nextQuestion()
                 return "Отлично - ты справился\n${question.question}" to status.color
-
             }
-            else {return "Отлично - ты справился\nНа этом все, вопросов больше нет" to status.color}
+            else {
+                question=Question.IDLE
+                return "Отлично - ты справился\nНа этом все, вопросов больше нет" to status.color}
         }
         else{
             if (status == Status.DANGER) {
